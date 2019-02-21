@@ -4,6 +4,7 @@ import lab4.client.GomokuClient;
 import lab4.data.GomokuGameState;
 import lab4.gui.GomokuGUI;
 
+
 public class GomokuMain {
 
 	

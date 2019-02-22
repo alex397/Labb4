@@ -8,7 +8,7 @@ import lab4.data.GameGrid;
 import lab4.data.GomokuGameState;
 
 /*
- * The GUI class
+ * The GUI class. Represents the view. A window showing the board, prev moves, indacation on player turns, info message, three buttons.
  */
 
 public class GomokuGUI implements Observer{

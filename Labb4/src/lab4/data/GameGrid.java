@@ -22,7 +22,7 @@ public class GameGrid extends Observable {
 	public static final int OTHER = 2;
 
 	// Represents the amount of squares a player need to combine to win.
-	public int INROW = 3; // !ÄNDRA TILL 5!
+	public int INROW = 5; 
 
 	/**
 	 * Constructor
@@ -183,22 +183,20 @@ public class GameGrid extends Observable {
 			}
 			result = result + "\n"; // New row for each column.
 		}
+		System.out.print(result);
 		return result;
 	}
 	
 
-	public static void main(String[] args) {
-		GameGrid test = new GameGrid(3); // !ÄNDRA TILL 19!
-		test.move(0, 0, ME);
-		test.move(1, 1, ME);
-		test.move(2, 2, ME);
+//	public static void main(String[] args) {
+//		GameGrid test = new GameGrid(3); 
+//		test.move(0, 0, ME);
+//		test.move(1, 1, ME);
+//		test.move(2, 2, ME);
 		
-
-		
-		
-		System.out.println(test.isWinner(ME));
+//		System.out.println(test.isWinner(ME));
 		//Shows a string version of the game.
-		System.out.println(test.toString());
-	}
+//		System.out.println(test.toString());
+//	}
 
 }

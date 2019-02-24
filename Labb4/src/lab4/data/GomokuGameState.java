@@ -6,9 +6,12 @@ import java.util.Observer;
 import lab4.client.GomokuClient;
 
 /**
- * Represents the state of a game during play. Model of the game. The model is
- * an object (of this class) that holds all relevant data that describe a game
- * in progress. Contains a reference to an object of the class GameGrid.
+ * @author Alexander Liljeborg & Kristoffer Eriksson
+ * 
+ *         Represents the state of a game during play. Model of the game. The
+ *         model is an object (of this class) that holds all relevant data that
+ *         describe a game in progress. Contains a reference to an object of the
+ *         class GameGrid.
  */
 
 public class GomokuGameState extends Observable implements Observer {
@@ -32,7 +35,8 @@ public class GomokuGameState extends Observable implements Observer {
 	private String message;
 
 	/**
-	 * The constructor
+	 * The constructor. Initialize client, currentState, gameGrid. Also makes the
+	 * created object (instance of this class) an observer.
 	 * 
 	 * @param gc The client used to communicate with the other player
 	 */
@@ -54,65 +58,72 @@ public class GomokuGameState extends Observable implements Observer {
 	}
 
 	/**
-	 * Returns the game grid
+	 * Returns the game grid. The actual model of the game board, all player
+	 * locations.
 	 * 
 	 * @return the game grid
 	 */
-	public GameGrid getGameGrid() {	
+	public GameGrid getGameGrid() {
 		return gameGrid;
 	}
 
 	/**
-	 * This player makes a move at a specified location. Moves the player ME make, made when ME clicks on the board.
+	 * This player makes a move at a specified location. Moves the player ME, used
+	 * in GUI to move ME when ME press the board. This only if its ME's turn and a
+	 * game is consider started. When a move is made both ME and OTHER is notified.
+	 * The method also always check if the move made ME the winner. The second
+	 * if-statement itself both checks if a move is possible and actually makes the
+	 * move if it is. So that statment alone run the entire method move in GameGrid.
 	 * 
 	 * @param x the x coordinate
 	 * @param y the y coordinate
 	 */
 	public void move(int x, int y) {
 		if (currentState == MY_TURN) {
-			if(gameGrid.move(x, y, GameGrid.ME)) {
+			if (gameGrid.move(x, y, GameGrid.ME)) {
 				client.sendMoveMessage(x, y);
 				message = "Move made!";
-				
-				if (gameGrid.isWinner(GameGrid.ME)){
+
+				if (gameGrid.isWinner(GameGrid.ME)) {
 					message = "Winner Winner Chicken Dinner!";
 					currentState = FINISHED;
-				}else {
+				} else {
 					message = "Opponents turn!";
 					currentState = OTHERS_TURN;
 				}
-				
+
 				setChanged();
-				notifyObservers();		
-			}else {
+				notifyObservers();
+			} else {
 				System.out.print("Move not possible");
-				message = "Move was not possible!";	
+				message = "Move was not possible!";
 			}
-			
-		}else if (currentState == NOT_STARTED) {
+
+		} else if (currentState == NOT_STARTED) {
 			message = "Game is not started!";
 			setChanged();
 			notifyObservers();
 			return;
-			
-		}else if (currentState == FINISHED) {
+
+		} else if (currentState == FINISHED) {
 			message = "Game is finished!";
 			setChanged();
 			notifyObservers();
-			return;		
+			return;
 		}
-		
+
 	}
 
 	/**
-	 * Starts a new game with the current client. Called when player ME press "New Game" button.
+	 * Starts a new game with the current client. Called when player ME press "New
+	 * Game" button.
 	 */
 	public void newGame() {
 		gameGrid.clearGrid();
 		currentState = OTHERS_TURN;
 		message = "You started a new game, it's your opponents turn!";
 		setChanged();
-		notifyObservers();		
+		notifyObservers();
 	}
 
 	/**
@@ -120,11 +131,11 @@ public class GomokuGameState extends Observable implements Observer {
 	 * accordingly. Received when opponent press button "New Game".
 	 */
 	public void receivedNewGame() {
-		gameGrid.clearGrid();	
+		gameGrid.clearGrid();
 		currentState = MY_TURN;
 		message = "Opponent started a new game, please make your move!";
 		setChanged();
-		notifyObservers();	
+		notifyObservers();
 	}
 
 	/**
@@ -139,7 +150,8 @@ public class GomokuGameState extends Observable implements Observer {
 	}
 
 	/**
-	 * The player disconnects from the client. Called when ME clicks the button "Disconnect".
+	 * The player disconnects from the client. Called when ME clicks the button
+	 * "Disconnect".
 	 */
 	public void disconnect() {
 		gameGrid.clearGrid();
@@ -147,31 +159,34 @@ public class GomokuGameState extends Observable implements Observer {
 		message = "You disconnected!";
 		client.disconnect();
 		setChanged();
-		notifyObservers();			
+		notifyObservers();
 	}
 
 	/**
-	 * The player receives a move from the other player
+	 * The player receives a move from the other player. Like method move above we check if that move is possible and also if that move made OTHER the winner.
 	 * 
 	 * @param x The x coordinate of the move
 	 * @param y The y coordinate of the move
 	 */
 	public void receivedMove(int x, int y) {
-		if(gameGrid.move(x, y, GameGrid.OTHER)){
+		if (gameGrid.move(x, y, GameGrid.OTHER)) {
 
-			if (gameGrid.isWinner(GameGrid.OTHER)){
+			if (gameGrid.isWinner(GameGrid.OTHER)) {
 				message = "Your opponent won!";
 				currentState = FINISHED;
-			}else {
+			} else {
 				message = "Your turn!";
 				currentState = MY_TURN;
 			}
 
 			setChanged();
-			notifyObservers();		
-		}	
+			notifyObservers();
+		}
 	}
-
+	
+	/**
+	 * Method used when observers are notified of a change. In this case used to determine the initial game state when a game starts.
+	 */
 	public void update(Observable o, Object arg) {
 
 		switch (client.getConnectionStatus()) {
@@ -187,19 +202,6 @@ public class GomokuGameState extends Observable implements Observer {
 		setChanged();
 		notifyObservers();
 
-	}
-	
-	public static void main(String[] args) {
-		GomokuClient client = new GomokuClient(4008);
-		GomokuGameState test = new GomokuGameState(client);
-		
-		test.receivedNewGame();
-		test.move(0, 0);
-		test.move(1, 1);
-		test.move(2, 2);
-		
-		test.gameGrid.toString();
-		
 	}
 
 }

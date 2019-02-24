@@ -3,7 +3,11 @@ package lab4;
 import lab4.client.GomokuClient;
 import lab4.data.GomokuGameState;
 import lab4.gui.GomokuGUI;
-
+/**
+ * @author Alexander Liljeborg	&	Kristoffer Eriksson
+ * 
+ * The class is used to initiate the program (Gomoku Game) by creating 3 objects (a client, a model, a view).
+ */
 public class GomokuMain {
 
 	// Task 4. Vi hämtar portnumber som inmatat argument om och endast om det enbart
@@ -19,7 +23,7 @@ public class GomokuMain {
 		}
 		
 		
-		
+		// Vi skapar objekten client, gameState, GUI och på så vis initierar vårat program (Gomoku).
 		GomokuClient client = new GomokuClient(portnumber);
 		GomokuGameState gameState = new GomokuGameState(client);
 		GomokuGUI GUI = new GomokuGUI(gameState, client);

@@ -21,11 +21,11 @@ public class GomokuGameState extends Observable implements Observer {
 	private GameGrid gameGrid;
 
 	// 4 Possible game states. currentState is any of 4. That is (0, 1, 2 or 3).
-	private final int NOT_STARTED = 0;
+	public final int NOT_STARTED = 0;
 	private final int MY_TURN = 1;
 	private final int OTHER_TURN = 2;
 	private final int FINISHED = 3;
-	private int currentState;
+	public int currentState;
 
 	// Reference variable for the GomokuClient of this game. object that is
 	// responsible for communicating with player "other".
@@ -203,5 +203,8 @@ public class GomokuGameState extends Observable implements Observer {
 		notifyObservers();
 
 	}
-
+	
+	public int getcurrentState() {
+		return currentState;
+	}
 }

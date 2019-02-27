@@ -151,7 +151,7 @@ public class GameGrid extends Observable {
 					}
 
 					// Check diagonal victory of player. (\)
-					while (stack < INROW && row + stack < boardModel.length) {
+					while (stack < INROW && row + stack < boardModel.length && col + stack < boardModel[row].length) {
 						if (boardModel[row + stack][col + stack] == player) {
 							stack++;
 						} else {
@@ -190,7 +190,7 @@ public class GameGrid extends Observable {
 		return false;
 	}
 
-	// Koverterar till sträng för att snabbt visualisera vårat spel. (Test köra
+	// Koverterar till str‰ng fˆr att snabbt visualisera vÂrat spel. (Test kˆra
 	// metoder i paketet lab4.data utan GUI)
 //	public String toString() {
 //		String result = "";

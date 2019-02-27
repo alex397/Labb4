@@ -48,18 +48,18 @@ public class GomokuGUI implements Observer{
 		frame.setVisible(true);
 		frame.setResizable(false);
 		
-		messageLabel = new JLabel("Welcome to Gomoku"); //Starttexten för alla buttons samt messageLabel
+		messageLabel = new JLabel("Welcome to Gomoku"); //Starttexten fˆr alla buttons samt messageLabel
 		connectButton = new JButton("Connect");
 		newGameButton = new JButton("New Game");
 		disconnectButton = new JButton("Disconnect");
 
-		if(gamestate.getcurrentState() == gamestate.NOT_STARTED) { //Om spelet ej är startat så ska
-			newGameButton.setEnabled(false);					   //knapparna ej vara tillgängliga
+		if(gamestate.currentState == gamestate.NOT_STARTED) { //Om spelet ej ‰r startat sÂ ska
+			newGameButton.setEnabled(false);					   //knapparna ej vara tillg‰ngliga
 			disconnectButton.setEnabled(false);
 		}
 		
 		connectButton.addActionListener(new ActionListener() { //Skapa ett nytt connectionWindow
-			public void actionPerformed(ActionEvent arg0) {	   //och försök connecta till andra spelaren
+			public void actionPerformed(ActionEvent arg0) {	   //och fˆrsˆk connecta till andra spelaren
 				String input = arg0.getActionCommand();
 				if(input.equals("Connect")) {
 					connect = new ConnectionWindow(client);
@@ -79,7 +79,7 @@ public class GomokuGUI implements Observer{
 			}
 		});		
 		
-		disconnectButton.addActionListener(new ActionListener() { //Disconnecta från spelet
+		disconnectButton.addActionListener(new ActionListener() { //Disconnecta frÂn spelet
 			public void actionPerformed(ActionEvent e) {
 				String buttonInput = e.getActionCommand();
 				if(buttonInput.equals("Disconnect")) {
@@ -92,7 +92,7 @@ public class GomokuGUI implements Observer{
 		gameGridPanel = new GamePanel(gamestate.getGameGrid());
 		gameGridPanel.setVisible(true);
 		
-		MouseAdapter mouseListener = new MouseAdapter(){ //Hämtar x,y position för musklickningar
+		MouseAdapter mouseListener = new MouseAdapter(){ //H‰mtar x,y position fˆr musklickningar
 			public void mouseClicked(MouseEvent e){
 				gamestate.move(gameGridPanel.getGridPosition(e.getX(), e.getY())[0],
 						(gameGridPanel.getGridPosition(e.getX(), e.getY()))[1]);

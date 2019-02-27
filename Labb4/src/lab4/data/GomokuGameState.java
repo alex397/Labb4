@@ -82,7 +82,6 @@ public class GomokuGameState extends Observable implements Observer {
 		if (currentState == MY_TURN) {
 			if (gameGrid.move(x, y, GameGrid.ME)) {
 				client.sendMoveMessage(x, y);
-				message = "Move made!";
 
 				if (gameGrid.isWinner(GameGrid.ME)) {
 					message = "Winner Winner Chicken Dinner!";
@@ -95,8 +94,9 @@ public class GomokuGameState extends Observable implements Observer {
 				setChanged();
 				notifyObservers();
 			} else {
-				System.out.print("Move not possible");
 				message = "Move was not possible!";
+				setChanged();
+				notifyObservers();
 			}
 
 		} else if (currentState == NOT_STARTED) {

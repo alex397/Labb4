@@ -57,7 +57,7 @@ public class GameGrid extends Observable {
 	 * @return the value of the specified location
 	 */
 	public int getLocation(int x, int y) {
-		return boardModel[y][x];
+		return boardModel[x][y];
 
 	}
 
@@ -85,8 +85,8 @@ public class GameGrid extends Observable {
 	 * @return true if the insertion worked, false otherwise
 	 */
 	public boolean move(int x, int y, int player) {
-		if (boardModel[y][x] == EMPTY) {
-			boardModel[y][x] = player;
+		if (boardModel[x][y] == EMPTY) {
+			boardModel[x][y] = player;
 			setChanged();
 			notifyObservers();
 			return true;

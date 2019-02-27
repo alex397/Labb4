@@ -74,7 +74,7 @@ public class GomokuGUI implements Observer{
 				String buttonInput = e.getActionCommand();
 				if(buttonInput.equals("New Game")) {
 					gamestate.newGame();
-					messageLabel.setText("New Game Started");
+					client.sendNewGameMessage();
 				}
 			}
 		});		
@@ -84,7 +84,6 @@ public class GomokuGUI implements Observer{
 				String buttonInput = e.getActionCommand();
 				if(buttonInput.equals("Disconnect")) {
 					gamestate.disconnect();
-					messageLabel.setText("Disconnected From Game");
 				}
 			}
 		});
@@ -94,10 +93,16 @@ public class GomokuGUI implements Observer{
 		
 		MouseAdapter mouseListener = new MouseAdapter(){ //H‰mtar x,y position fˆr musklickningar
 			public void mouseClicked(MouseEvent e){
-				gamestate.move(gameGridPanel.getGridPosition(e.getX(), e.getY())[0],
-						(gameGridPanel.getGridPosition(e.getX(), e.getY()))[1]);
+				try {
+					int[] pos = gameGridPanel.getGridPosition(e.getX(), e.getY());
+					gamestate.move(pos[0], pos[1]);
+
+				}catch (ArrayIndexOutOfBoundsException a) {
+				}
 			}
 		};
+		
+		
 		
 		gameGridPanel.addMouseListener(mouseListener);
 		

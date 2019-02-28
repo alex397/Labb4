@@ -72,14 +72,14 @@ public class GamePanel extends JPanel implements Observer{
 		g.drawRect(x*UNIT_SIZE, y*UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 	}
 	
-	public void Circle(int x, int y, Color color, Graphics g) { //KAN KOMMA ATT BEH÷VA ƒNDRA STORLEKAR
+	public void Circle(int x, int y, Color color, Graphics g) {
 		g.setColor(color);
 		g.drawOval(x*UNIT_SIZE, y*UNIT_SIZE, UNIT_SIZE-2, UNIT_SIZE-2);
 	}	
-	public void Cross(int x, int y, Color color, Graphics g) { //KAN KOMMA ATT BEH÷VA ƒNDRA STORLEKAR
+	public void Cross(int x, int y, Color color, Graphics g) { 
 		g.setColor(color);
-		g.drawLine(x*UNIT_SIZE, y*UNIT_SIZE, x*UNIT_SIZE, y*UNIT_SIZE);
-		g.drawLine(x*UNIT_SIZE, y*UNIT_SIZE + y, x*UNIT_SIZE + x, y*UNIT_SIZE);	
+		g.drawLine(x*UNIT_SIZE, y*UNIT_SIZE, x*UNIT_SIZE + UNIT_SIZE, y*UNIT_SIZE + UNIT_SIZE);
+		g.drawLine(x*UNIT_SIZE, y*UNIT_SIZE + UNIT_SIZE, x*UNIT_SIZE + UNIT_SIZE, y*UNIT_SIZE);	
 	}	
 		
 	}

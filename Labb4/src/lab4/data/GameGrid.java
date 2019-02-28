@@ -25,7 +25,7 @@ public class GameGrid extends Observable {
 	public static final int OTHER = 2;
 
 	// Represents the amount of squares a player need to combine to win.
-	public int INROW = 5;
+	private final int INROW = 5;
 
 	/**
 	 * Constructor. Defines the size of a board by initializing the array boardModel

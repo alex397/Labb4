@@ -51,6 +51,9 @@ public class GamePanel extends JPanel implements Observer{
 		this.repaint();
 	}
 	
+	/**
+	 * Paints the board and all player moves.
+	 */
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		for (int i = 0; i < grid.getSize(); i++) { // Y-led

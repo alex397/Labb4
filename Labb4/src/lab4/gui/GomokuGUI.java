@@ -11,6 +11,7 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import lab4.client.GomokuClient;
 import lab4.data.GomokuGameState;
@@ -41,12 +42,13 @@ public class GomokuGUI implements Observer{
 		client.addObserver(this);
 		gamestate.addObserver(this);
 		
+		JPanel panel = new JPanel();
 		frame = new JFrame("Gomoku");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(400,400);
 		frame.setTitle("Gomoku");
 		frame.setVisible(true);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		
 		messageLabel = new JLabel("Welcome to Gomoku"); //Starttexten fˆr alla buttons samt messageLabel
 		connectButton = new JButton("Connect");
@@ -118,7 +120,10 @@ public class GomokuGUI implements Observer{
 		mainBox.add(gameGridPanel);
 		mainBox.add(buttonBox);
 		mainBox.add(messageBox);
-		frame.add(mainBox);
+		panel.add(mainBox);
+		
+		frame.setContentPane(panel);
+	
 	}
 	
 	
